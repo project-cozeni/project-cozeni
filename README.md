@@ -34,6 +34,7 @@ API integration reference for payments, transaction queries, balances, exchange 
 | Nov 2021 | Introduced Promotional Program for Pay Ins Updates to the Pay In response attributes and callback Introduced conversionRate in response attribute | V1.07 |
 | Aug 2022 | Balance Inquiry and Network Fee Estimation Decommissioned support for USDC TRC | V1.08 |
 | Feb 2025 | Introduction of LTC, SOL coins | V1.10 |
+| Aug 2026 | Halted support for SOL| V1.20 |
 
 ## GENERAL OVERVIEW
 
@@ -116,7 +117,7 @@ There are 2 types of responses that you may get when calling the payment API.
 | **timestamp** | The date/time when transaction was created |
 | **requestAmount** | The amount of the requested payment |
 | **requestCurrency** | The currency of the requested payment |
-| **receivedAmount** | The amount received from the customer. This will initially be zero until payment has completed |
+| **receivedAmount** | The amount received from the customer. This will initially be zero until payment has completed; merchant should be using this value for the client's payment |
 | **convertAmount** | The converted amount is the received amount from the customer. This will initially be zero until payment has completed |
 | **convertCurrency** | The currency to convert to upon completion |
 | **paymentAddress** | The receiving wallet address for payment |
@@ -126,7 +127,7 @@ There are 2 types of responses that you may get when calling the payment API.
 | **totalCreditAmount** | If a promotional program is **NOT** enabled (See [Promotional Program](#promotional-programs)), this attribute would equal convertAmount. If a promotional program **IS** enabled, this attribute would consist of the convertAmount plus the promoCreditAmount. This will initially be zero until payment has completed. |
 | **totalCreditCurrency** | This will be the same as the convertCurrency |
 
-Due to the nature of how cryptocurrencies work, payments using cryptocurrency will be asynchronous. Therefore, the initial response will always be “01 - Accept payment pending” and you will need to provide the transaction details to the customer in order to complete the payment.
+Due to the nature of how cryptocurrencies work, payments using cryptocurrency will be asynchronous. Therefore, the initial response will always be “01 - Accept payment pending” and you will need to provide the transaction details to the customer in order to complete the payment. **Merchant should always be using receivedAmount as the final amount which client sent.**
 
 ##### Sample Response
 
